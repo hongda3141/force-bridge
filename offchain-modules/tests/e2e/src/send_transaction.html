@@ -1,0 +1,321 @@
+<html>
+
+<body>
+  <button id="btn">send_transaction</button>
+  <div><input type="text" id="param1" value="" /></div>
+  <div><input type="text" id="param2" value="" /></div>
+  <div><input type="text" id="param3" value="" /></div>
+  <div><input type="text" id="param4" value="" /></div>
+  <div><input type="text" id="param5" value="" /></div>
+  <div> value: <span id="ret"></span></div>
+  </div>
+</body>
+<script>
+  // import { goto } from './goto.js';
+  document.getElementById("btn").addEventListener("click", () => {
+    const param1 = document.getElementById("param1").value;
+    const param2 = document.getElementById("param2").value;
+    const param3 = document.getElementById("param3").value;
+    const param4 = document.getElementById("param4").value;
+    const param5 = document.getElementById("param5").value;
+
+    //  var url = 'http://127.0.0.1:3060/force-bridge/api/v1';
+    // http://mainnet-rpc.force-bridge.com/
+    var url = 'https://testnet-rpc.forcebridge.com/';
+    // var url = goto.urls.ckbTestnet;
+    var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
+    xmlhttp.open("POST", url);
+    xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    const p1 = "send_transaction"; 
+    const p2 = 102; 
+    const p3 = {
+    "asset": {
+        "network": param1,
+        "ident": param2,
+        "amount": param3
+    },
+    "recipient": param4,
+    "sender": param5
+      };
+
+    xmlhttp.send(JSON.stringify({
+      "jsonrpc": "2.0",
+      "method": p1,
+      "id": p2,
+      "params": p3,
+    }));
+    
+    //监听事件
+    xmlhttp.onreadystatechange = function () {
+        if(xmlhttp.readyState === 4&&xmlhttp.status === 200)
+        {
+            console.log(xmlhttp.responseText);
+            // document.getElementById("ret").innerHTML = JSON.stringify(xmlhttp.responseText);
+            document.getElementById("ret").innerHTML = xmlhttp.responseText;
+        }
+        if (xmlhttp.status === 400) {
+            console.log(xmlhttp.responseText)
+            // document.getElementById("ret").innerHTML = JSON.stringify(xmlhttp.responseText);
+            document.getElementById("ret").innerHTML = xmlhttp.responseText;
+        }
+    }
+  });
+
+
+
+</script>
+
+</html>
+
+
+
+
+<!-- 
+{
+  "jsonrpc": "2.0",
+  "id": 102,
+  "method": "send_transaction",
+  "params": [
+    {
+      "version": "0x0",
+      "cell_deps": [
+        {
+          "dep_type": "dep_group",
+          "out_point": {
+            "index": "0x1",
+            "tx_hash": "0xf8de3bb47d055cdf460d93a2a6e1b05f7432f9777c8c474abf4eec1d4aee5d37"
+          }
+        },
+        {
+          "dep_type": "code",
+          "out_point": {
+            "index": "0x0",
+            "tx_hash": "0xe12877ebd2c3c364dc46c5c992bcfaf4fee33fa13eebdf82c591fc9825aab769"
+          }
+        },
+        {
+          "dep_type": "code",
+          "out_point": {
+            "index": "0x0",
+            "tx_hash": "0x9b76017d200be714f5da85e8218d89d6e262c41f874f72f232941eb66b45814b"
+          }
+        },
+        {
+          "dep_type": "code",
+          "out_point": {
+            "index": "0x0",
+            "tx_hash": "0x48ef8758cff81cef005b3eb7cae8150f9282c6e3dbcf8298d8f2c999cba34b42"
+          }
+        },
+        {
+          "dep_type": "dep_group",
+          "out_point": {
+            "index": "0x0",
+            "tx_hash": "0xf8de3bb47d055cdf460d93a2a6e1b05f7432f9777c8c474abf4eec1d4aee5d37"
+          }
+        }
+      ],
+      "header_deps": [],
+      "inputs": [
+        {
+          "previous_output": {
+            "index": "0x0",
+            "tx_hash": "0x66533d3002eee117e43064f0515b21662924986082a2a235ac2c84f52bcef0f5"
+          },
+          "since": "0x0"
+        },
+        {
+          "previous_output": {
+            "index": "0x2",
+            "tx_hash": "0x31f36d34094d2b138b3e9c6b3eddf4fb76af198bfe1351f556b9121794b07ca4"
+          },
+          "since": "0x0"
+        },
+        {
+          "previous_output": {
+            "index": "0x3",
+            "tx_hash": "0x66533d3002eee117e43064f0515b21662924986082a2a235ac2c84f52bcef0f5"
+          },
+          "since": "0x0"
+        }
+      ],
+      "outputs": [
+        {
+          "capacity": "0x6fc23ac00",
+          "lock": {
+            "code_hash": "0x58c5f491aba6d61678b7cf7edf4910b1f5e00ec0cde2f42e0abb4fd9aff25a63",
+            "hash_type": "type",
+            "args": "0xb7abd784a77c307797844136eb2f2a67325e2486"
+          },
+          "type": {
+            "code_hash": "0x863bfb7794495fa08e06445d8b18a25538ca23448dc0d551f0687b7b8aaca698",
+            "hash_type": "type",
+            "args": "0x"
+          }
+        },
+        {
+          "capacity": "0x32a9f8800",
+          "lock": {
+            "args": "0x5f0000001000000030000000310000004a40c8769089d43b54b7552d0e3427f3bb896607de175a6483b301fca2e2184a012a000000307830303030303030303030303030303030303030303030303030303030303030303030303030303030",
+            "code_hash": "0x2170ffdb67574651c7bc51455d98f29394f2ee134a306c84533732f52e0eb50e",
+            "hash_type": "type"
+          },
+          "type": null
+        },
+        {
+          "capacity": "0x21d26a4fc96e",
+          "lock": {
+            "args": "0x900fee899a5462cb518eab1386c2842724cacd06",
+            "code_hash": "0x9bd7e06f3ecf4be0f2fcd2188b23f1b9fcc88e5d4b65a8637b17723bbda3cce8",
+            "hash_type": "type"
+          },
+          "type": null
+        }
+      ],
+      "outputs_data": [
+        "0xce000000200000004e0000004f0000007d0000009d0000009e000000be0000002a000000307862376162643738346137376333303737393738343431333665623266326136373332356532343836012a0000003078303030303030303030303030303030303030303030303030303030303030303030303030303030302170ffdb67574651c7bc51455d98f29394f2ee134a306c84533732f52e0eb50e014a40c8769089d43b54b7552d0e3427f3bb896607de175a6483b301fca2e2184a0000c16ff28623000000000000000000",
+        "0x00b018512db9b8000000000000000000",
+        "0x"
+      ],
+      "witnesses": [
+        "0x55000000100000005500000055000000410000006f844a18fa56af26e8231dba861f39a291420e7993e74537df8dede4c93db6e842b408baffea001b989cf82bcc6057eb2e7b0931019226f2a0d283280d4284ac00",
+        "0x",
+        "0x",
+        "0x",
+        "0x"
+      ]
+    },
+    "passthrough"
+  ]
+}
+
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "transaction": {
+      "cell_deps": [
+        {
+          "dep_type": "dep_group",
+          "out_point": {
+            "index": "0x1",
+            "tx_hash": "0xf8de3bb47d055cdf460d93a2a6e1b05f7432f9777c8c474abf4eec1d4aee5d37"
+          }
+        },
+        {
+          "dep_type": "code",
+          "out_point": {
+            "index": "0x0",
+            "tx_hash": "0xe12877ebd2c3c364dc46c5c992bcfaf4fee33fa13eebdf82c591fc9825aab769"
+          }
+        },
+        {
+          "dep_type": "code",
+          "out_point": {
+            "index": "0x0",
+            "tx_hash": "0x9b76017d200be714f5da85e8218d89d6e262c41f874f72f232941eb66b45814b"
+          }
+        },
+        {
+          "dep_type": "code",
+          "out_point": {
+            "index": "0x0",
+            "tx_hash": "0x48ef8758cff81cef005b3eb7cae8150f9282c6e3dbcf8298d8f2c999cba34b42"
+          }
+        },
+        {
+          "dep_type": "dep_group",
+          "out_point": {
+            "index": "0x0",
+            "tx_hash": "0xf8de3bb47d055cdf460d93a2a6e1b05f7432f9777c8c474abf4eec1d4aee5d37"
+          }
+        }
+      ],
+      "hash": "0xff26fc91c213bfa73f7c01bfe34d3b8c14f9336bfa888f2fff0da69027b446ec",
+      "header_deps": [],
+      "inputs": [
+        {
+          "previous_output": {
+            "index": "0x0",
+            "tx_hash": "0x66533d3002eee117e43064f0515b21662924986082a2a235ac2c84f52bcef0f5"
+          },
+          "since": "0x0"
+        },
+        {
+          "previous_output": {
+            "index": "0x2",
+            "tx_hash": "0x31f36d34094d2b138b3e9c6b3eddf4fb76af198bfe1351f556b9121794b07ca4"
+          },
+          "since": "0x0"
+        },
+        {
+          "previous_output": {
+            "index": "0x3",
+            "tx_hash": "0x66533d3002eee117e43064f0515b21662924986082a2a235ac2c84f52bcef0f5"
+          },
+          "since": "0x0"
+        }
+      ],
+      "outputs": [
+        {
+          "capacity": "0x16b969d00",
+          "lock": {
+            "args": "0x74bfb4519ce1c5cb5233611804ebaf469e82fae5",
+            "code_hash": "0x5c5069eb0857efc65e1bca0c07df34c31663b3622fd3876c876320fc9634e2a8",
+            "hash_type": "type"
+          },
+          "type": null
+        },
+        {
+          "capacity": "0x9502f9000",
+          "lock": {
+            "args": "0xb7abd784a77c307797844136eb2f2a67325e2486",
+            "code_hash": "0x58c5f491aba6d61678b7cf7edf4910b1f5e00ec0cde2f42e0abb4fd9aff25a63",
+            "hash_type": "type"
+          },
+          "type": {
+            "args": "0x1b072aa0ded384067106ea0c43c85bd71bafa5afdb432123511da46b390a4e33",
+            "code_hash": "0xc5e5dcf215925f7ef4dfaf5f4b4f105bc321c02776d6e7d52a1db3fcd9d011a4",
+            "hash_type": "type"
+          }
+        },
+        {
+          "capacity": "0x32a9f8800",
+          "lock": {
+            "args": "0x5f0000001000000030000000310000004a40c8769089d43b54b7552d0e3427f3bb896607de175a6483b301fca2e2184a012a000000307830303030303030303030303030303030303030303030303030303030303030303030303030303030",
+            "code_hash": "0x2170ffdb67574651c7bc51455d98f29394f2ee134a306c84533732f52e0eb50e",
+            "hash_type": "type"
+          },
+          "type": null
+        },
+        {
+          "capacity": "0x21d26a4fc96e",
+          "lock": {
+            "args": "0x900fee899a5462cb518eab1386c2842724cacd06",
+            "code_hash": "0x9bd7e06f3ecf4be0f2fcd2188b23f1b9fcc88e5d4b65a8637b17723bbda3cce8",
+            "hash_type": "type"
+          },
+          "type": null
+        }
+      ],
+      "outputs_data": [
+        "0x",
+        "0x0030d53b0a5a00000000000000000000",
+        "0x",
+        "0x"
+      ],
+      "version": "0x0",
+      "witnesses": [
+        "0x7401000010000000170100007401000003010000000003030444d545cdd241d4db0db597e635f8fcbc6b8161b1ddfd1e5400169be3aba9767abf2304a1f25fe0033a1c8661550f7453c70f5770aac77bb871dee06c5ad532f096e44f474234ae0535d1e1c125c680afc980a70fd1a0c8391df845310b58477dd67ea4ab0eb47a515719e6e2b72d9289f5b741f43ff79b99d92dc601aa572c1758a9c33c5c5297ca509041bf51cd11f89cfaa53c91f1f553980aedd42797e9cdac5a42a2193b54d06b8e756bae1f4432da93ea1aa9d12f1b751c3f1501daf64be46129441f30b939051c493ecd71edbcf4c86759a4f629a2989456b2ab429318a5475689b51a11adec5e7c6f04c4c0e61c64b033c2fa7dc3b32c5cf27d015900000059000000080000005100000008000000450000003078366636333934333034666532323866633738356463613538353939663832316638616561626362656664376161626638663264386164616632333732666631322d3635",
+        "0x",
+        "0x55000000100000005500000055000000410000009145a6b152a4ab1943021d6c2297e98da2edfb9e62bb13e6c0e47a4fd8b7c1e162cd6d0f4838948e86240ab296a236977bc2c0df1d7017fac6be203148198eb300"
+      ]
+    },
+    "tx_status": {
+      "block_hash": "0x3bf0c28e992bd50160bfc8ce6dc58541f00dca1939b6d6b9a3cebe426361c588",
+      "reason": null,
+      "status": "committed"
+    }
+  },
+  "id": 101
+}
+ -->

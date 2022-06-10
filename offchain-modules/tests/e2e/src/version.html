@@ -1,0 +1,59 @@
+<html>
+
+<body>
+  <button id="btn">version</button>
+  <div> value: <span id="ret"></span></div>
+  </div>
+</body>
+<script>
+  // import { goto } from './goto.js';
+  // const goto = require('./goto.js');
+  document.getElementById("btn").addEventListener("click", () => {
+
+     var url = 'http://127.0.0.1:3060/force-bridge/api/v1';
+    // var url = 'https://testnet.forcebridge.com/api/force-bridge/api/v1';
+    // var url = goto.urls.watcherLocal;
+    var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
+    xmlhttp.open("POST", url);
+    xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    const p1 = "version"; 
+    const p2 = 10; 
+
+    xmlhttp.send(JSON.stringify({
+      "jsonrpc": "2.0",
+      "method": p1,
+      "id": p2,
+    }));
+    
+    //监听事件
+    xmlhttp.onreadystatechange = function () {
+        if(xmlhttp.readyState === 4&&xmlhttp.status === 200)
+        {
+            console.log(xmlhttp.responseText);
+            // document.getElementById("ret").innerHTML = JSON.stringify(xmlhttp.responseText);
+            document.getElementById("ret").innerHTML = xmlhttp.responseText;
+        }
+        if (xmlhttp.status === 400) {
+            console.log(xmlhttp.responseText)
+            // document.getElementById("ret").innerHTML = JSON.stringify(xmlhttp.responseText);
+            document.getElementById("ret").innerHTML = xmlhttp.responseText;
+        }
+    }
+  });
+
+
+
+</script>
+
+</html>
+
+
+
+
+<!-- 
+{
+  "jsonrpc": "2.0",
+  "method": "version",
+  "id": 10
+}
+ -->
