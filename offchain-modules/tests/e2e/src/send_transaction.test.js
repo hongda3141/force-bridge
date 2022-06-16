@@ -1,26 +1,51 @@
 import goto from "./goto";
 
-const pageName = "generateBridgeInNervosTransaction.html";
+const pageName = "send_transaction.html";
 beforeEach(async () => {
   await goto.goto(page, pageName);
 });
 
-describe("generateBridgeInNervosTransaction", () => {
-  it("egenerateBridgeInNervosTransaction_1", async () => {
-    const res = {
-      "jsonrpc": "2.0",
-      "id": 1,
-      "result": {
-        "network": "Ethereum", // echo the source network
-        "rawTransaction": {
-          "data": "0xa406ad9a000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000e00000000000000000000000000000000000000000000000000000000000000061636b7431717076767461793334776e6476396e636b6c3868616836667a7a636c746371776372783739617077703261356c6b643037666478787164683430746366666d7578706d6530707a70786d346a37326e387866307a667073353568363863000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000", // sudt extra data
-          "to": "0xa20d0da0b349B1d8c235b5ED748484045e979109", // the address of force bridge's contracts
-          "value": {
-            "type": "BigNumber",
-            "hex": "0x09184e72a000" // amount in hex
-          }
+describe("send_transaction", () => {
+  it("send_transaction_1", async () => {
+    const resTx = {
+      "cell_deps": [],
+      "hash": "0xf06bbfb53d58f1c94c88f3a7cde40f56004af7b68c17b0bd201169c516647324",
+      "header_deps": [],
+      "inputs": [
+        {
+          "previous_output": {
+            "index": "0xffffffff",
+            "tx_hash": "0x0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "since": "0x214f"
         }
-      }
+      ],
+      "outputs": [
+        {
+          "capacity": "0x19ff619502",
+          "lock": {
+            "args": "0x43d509d97f26007a285f39241cffcd411157196c",
+            "code_hash": "0x9bd7e06f3ecf4be0f2fcd2188b23f1b9fcc88e5d4b65a8637b17723bbda3cce8",
+            "hash_type": "type"
+          },
+          "type": null
+        }
+      ],
+      "outputs_data": [
+        "0x"
+      ],
+      "version": "0x0",
+      "witnesses": [
+        "0x690000000c00000055000000490000001000000030000000310000009bd7e06f3ecf4be0f2fcd2188b23f1b9fcc88e5d4b65a8637b17723bbda3cce8011400000043d509d97f26007a285f39241cffcd411157196c100000004146065c15956f5b65a1f03cc65b4b7a"
+      ]
+    }
+    const  res = {
+      "jsonrpc": "2.0",
+      "id": 102,
+      "method": "send_transaction",
+      "params": [
+        resTx,
+      ]
     };
     const param1 = await page.$(goto.pageIds.param1Id);
     const param2 = await page.$(goto.pageIds.param2Id);
@@ -54,3 +79,41 @@ describe("generateBridgeInNervosTransaction", () => {
   //   await goto.check(page, "null");
   // });
 });
+
+
+
+// {
+//   "cell_deps": [],
+//   "hash": "0xf06bbfb53d58f1c94c88f3a7cde40f56004af7b68c17b0bd201169c516647324",
+//   "header_deps": [],
+//   "inputs": [
+//     {
+//       "previous_output": {
+//         "index": "0xffffffff",
+//         "tx_hash": "0x0000000000000000000000000000000000000000000000000000000000000000"
+//       },
+//       "since": "0x214f"
+//     }
+//   ],
+//   "outputs": [
+//     {
+//       "capacity": "0x19ff619502",
+//       "lock": {
+//         "args": "0x43d509d97f26007a285f39241cffcd411157196c",
+//         "code_hash": "0x9bd7e06f3ecf4be0f2fcd2188b23f1b9fcc88e5d4b65a8637b17723bbda3cce8",
+//         "hash_type": "type"
+//       },
+//       "type": null
+//     }
+//   ],
+//   "outputs_data": [
+//     "0x"
+//   ],
+//   "version": "0x0",
+//   "witnesses": [
+//     "0x690000000c00000055000000490000001000000030000000310000009bd7e06f3ecf4be0f2fcd2188b23f1b9fcc88e5d4b65a8637b17723bbda3cce8011400000043d509d97f26007a285f39241cffcd411157196c100000004146065c15956f5b65a1f03cc65b4b7a"
+//   ]
+// }
+
+
+

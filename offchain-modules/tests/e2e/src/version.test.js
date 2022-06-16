@@ -11,10 +11,10 @@ describe("version", () => {
       "jsonrpc": "2.0",
       "id": 10,
       "result": {
-        "version": "0.0.15"
+        "version": except.anything(),
       }
     };
-    await goto.check(page, JSON.stringify(res));
+    await goto.checkObject(res);
   });
 
   // {

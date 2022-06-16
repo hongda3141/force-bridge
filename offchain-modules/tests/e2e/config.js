@@ -1,3 +1,4 @@
+// import configSetting from "./config.json" assert {type: 'json'};
 import configSetting from "./config.json";
 
 export default class Config {
